@@ -23,11 +23,18 @@ public class Main {
 
         acc.undo();      // Проверка восстановления undo
         printAcc(acc);
+
+        acc.setAccType(AccType.USUAL);
+        printAcc(acc);
+
+        acc.undo();
+        printAcc(acc);
     }
 
     public static void printAcc(Account acc){
         System.out.println("");
         System.out.println("Владелец - " + acc.getOwnerName());
+        System.out.println("Тип счёта - " + acc.printAccType());
         acc.printSaldo();
     }
 }

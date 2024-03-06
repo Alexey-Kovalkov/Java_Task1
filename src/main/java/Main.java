@@ -7,8 +7,10 @@ public class Main {
         printAcc(acc);
 
         acc.setOwnerName("Михаил Паниковский");
+        acc.setAccType(AccType.USUAL);
         acc.setSaldo (Currency.RUB, 300);
         acc.setSaldo (Currency.EUR, 4);
+
         printAcc(acc);
 
         Loadable sn1 = acc.save();  // Сохранение
@@ -18,13 +20,17 @@ public class Main {
             printAcc(acc);
         }
 
+        System.out.println("========Восстановление========");
+
+        acc.setAccType(AccType.PREMIUM);
+
         sn1.load();      // Восстановление
         printAcc(acc);
 
         acc.undo();      // Проверка восстановления undo
         printAcc(acc);
 
-        acc.setAccType(AccType.USUAL);
+        acc.setAccType(AccType.PREMIUM);
         printAcc(acc);
 
         acc.undo();

@@ -21,15 +21,18 @@ public class Account {
         private String ownerName;
         private HashMap<Currency, Integer> accSaldo = new HashMap<>();
         private Deque<Command> commands = new ArrayDeque<>();
+        private AccType accType;
 
         public Snapshot (){
             this.ownerName = Account.this.ownerName;
+            this.accType = Account.this.accType;
             this.accSaldo = new HashMap<>(Account.this.accSaldo);
             this.commands = new ArrayDeque<>(Account.this.commands);
         }
 
         public void load () {
             Account.this.ownerName = this.ownerName;
+            Account.this.accType = this.accType;
             Account.this.accSaldo = new HashMap<>(this.accSaldo);
             Account.this.commands = new ArrayDeque<>(this.commands);
         }

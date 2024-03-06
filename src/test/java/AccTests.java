@@ -70,4 +70,37 @@ public class AccTests {
         acc.undo();
         Assertions.assertNull(acc.getAccType());
     }
+
+    @Test
+    @DisplayName("Тест сохранения")
+    public void accSave() {
+        // исходные значения
+        String name1 = "Генрих Поперечный";
+        AccType type1 = AccType.USUAL;
+        HashMap<Currency, Integer> mapSaldo = new HashMap<>();
+        mapSaldo.put(Currency.RUB, 300);
+        mapSaldo.put(Currency.EUR, 60);
+
+
+        Account acc = new Account(name1);
+        acc.setSaldo(Currency.RUB, mapSaldo.get(Currency.RUB));
+        acc.setSaldo(Currency.EUR, mapSaldo.get(Currency.EUR));
+        acc.setAccType(type1);
+
+        // Сохранение
+        Loadable sn1 = acc.save();
+
+        // Изменение
+        acc.setOwnerName("Артур Продольный");
+        acc.setSaldo (Currency.RUB, 100);
+        acc.setSaldo (Currency.EUR, 4);
+        acc.setAccType(AccType.PREMIUM);
+
+        // Восстановление
+        sn1.load();
+
+        Assertions.assertEquals(name1, acc.getOwnerName());
+        Assertions.assertEquals(type1, acc.getAccType());
+        Assertions.assertEquals(mapSaldo, acc.getAccSaldo());
+    }
 }

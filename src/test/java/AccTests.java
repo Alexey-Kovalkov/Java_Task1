@@ -58,4 +58,16 @@ public class AccTests {
         mapSaldo.remove(Currency.EUR);
         Assertions.assertEquals(mapSaldo, acc.getAccSaldo());
     }
+
+    @Test
+    @DisplayName("Undo тип счёта")
+    public void undoType() {
+        Account acc = new Account("Виктор Однозначный");
+        acc.setAccType(AccType.PREMIUM);
+        acc.setAccType(AccType.USUAL);
+        acc.undo();
+        Assertions.assertEquals(AccType.PREMIUM, acc.getAccType());
+        acc.undo();
+        Assertions.assertNull(acc.getAccType());
+    }
 }

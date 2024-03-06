@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Account {
     private String ownerName;
 
+    private AccType accType;
     private HashMap<Currency, Integer> accSaldo = new HashMap<>();
 
     private Deque<Command> commands = new ArrayDeque<>();
@@ -57,6 +58,24 @@ public class Account {
         this.accSaldo.put(curr, accS);
     }
 
+    public AccType getAccType() {
+        return accType;
+    }
+
+    public void setAccType(AccType accType) {
+        AccType oldType = this.accType;
+        this.commands.push(() -> {this.accType = oldType;});
+        this.accType = accType;
+    }
+
+    public String printAccType(){
+        if (this.accType == null) {
+            return "Не присвоен";
+        }
+        else {
+            return this.accType.toString();
+        }
+    }
     public HashMap<Currency, Integer> getAccSaldo() {
         return new HashMap<Currency, Integer>(this.accSaldo);
     }
